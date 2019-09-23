@@ -11,15 +11,15 @@ namespace rx
 class observable
 {
 private:
-    std::function<void(subscriber &)> __subscribe;
+    std::function<void(const subscriber &)> __subscribe;
 
 protected:
-    virtual void _subscribe(subscriber);
+    virtual void _subscribe(const subscriber &);
 
 public:
     observable() = default;
 
-    observable(const std::function<void(subscriber &)> &);
+    observable(const std::function<void(const subscriber &)> &);
 
     void subscribe(const subscriber &);
 

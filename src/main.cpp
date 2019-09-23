@@ -7,7 +7,7 @@ void func(int i)
 }
 int main()
 {
-    auto observable = rx::observable([](rx::subscriber &subscriber) {
+    auto observable = rx::observable([](const rx::subscriber &subscriber) {
         subscriber.next(1);
         subscriber.next(2);
         subscriber.next(3);

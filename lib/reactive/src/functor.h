@@ -55,13 +55,13 @@ public:
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
-    auto operator()(Args... args)
+    auto operator()(Args... args) const
     {
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
-    auto call(Args... args)
+    auto call(Args... args) const
     {
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }

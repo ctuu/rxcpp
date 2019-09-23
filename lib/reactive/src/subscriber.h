@@ -15,18 +15,18 @@ public:
     subscriber(A _next, B _error = nullptr, C _complete = nullptr) : _next(_next), _error(_error), _complete(_complete){};
     
     template <typename... Args>
-    void next(Args... args)
+    void next(Args... args) const
     {
         _next(args...);
     }
 
-    template <typename... Args>
-    void error(Args... args)
+    template <typename... Args> 
+    void error(Args... args) const
     {
         _error(args...);
     }
 
-    void complete()
+    void complete() const
     {
         _complete();
     }
