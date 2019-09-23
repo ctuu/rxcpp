@@ -21,7 +21,7 @@ public:
 
     observable(const std::function<void(subscriber &)> &);
 
-    void subscribe(subscriber);
+    void subscribe(const subscriber &);
 
     template <typename A, typename B = std::nullptr_t, typename C = std::nullptr_t>
     void subscribe(const A &_next = nullptr, const B &_error = nullptr, const C &_complete = nullptr)

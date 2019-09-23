@@ -10,7 +10,7 @@ void observable::_subscribe(subscriber subscriber)
 
 observable::observable(const std::function<void(subscriber &)> &subscriber) : __subscribe(subscriber) {}
 
-void observable::subscribe(subscriber _subscriber)
+void observable::subscribe(const subscriber &_subscriber)
 {
     _subscribe(_subscriber);
 }
