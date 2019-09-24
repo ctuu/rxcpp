@@ -21,7 +21,7 @@ protected:
 public:
     behavior_subject(const T &value) : prev_value(value), subject<T>() {}
 
-    T getValue()
+    T get_value()
     {
         return prev_value;
     }
