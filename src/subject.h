@@ -1,8 +1,9 @@
 #ifndef CTUU_RX_SUBJECT_H_
 #define CTUU_RX_SUBJECT_H_
 
-#include <memory>
+#include <any>
 #include <list>
+#include <memory>
 #include "observable.h"
 
 namespace rx
@@ -15,16 +16,20 @@ class subject : public observable
 private:
 protected:
     bool closed = false;
-    bool isStopped = false;
+    bool has_error = false;
+    bool is_stopped = false;
+    std::any thrown_error = NULL;
 
-    std::unique_ptr<subscri_list>subscribers;
+    std::unique_ptr<subscri_list> subscribers;
 
     virtual void _subscribe(const subscriber &subscriber)
     {
         if (closed)
             throw std::runtime_error("UnsubscribedError");
-        else if (isStopped)
+        else if (is_stopped)
             subscriber.complete();
+        else if (has_error)
+            subscriber.error(thrown_error);
         else
             subscribers->emplace_back(subscriber);
     }
@@ -40,25 +45,23 @@ public:
         if (closed)
             throw std::runtime_error("UnsubscribedError");
 
-        if (!isStopped)
+        if (!is_stopped)
         {
             for (auto e : *subscribers)
                 e.next(value);
         }
     }
 
-    virtual void error(const T &err)
+    virtual void error(const std::any &err)
     {
         if (closed)
             throw std::runtime_error("UnsubscribedError");
 
-        isStopped = true;
-
-        if (!isStopped)
-        {
-            for (auto e : *subscribers)
-                e.error(err);
-        }
+        has_error = true;
+        thrown_error = err;
+        is_stopped = true;
+        for (auto e : *subscribers)
+            e.error(err);
 
         subscribers->clear();
     }
@@ -68,22 +71,19 @@ public:
         if (closed)
             throw std::runtime_error("UnsubscribedError");
 
-        isStopped = true;
+        is_stopped = true;
 
-        if (!isStopped)
-        {
-            for (auto e : *subscribers)
-                e.complete();
-        }
+        for (auto e : *subscribers)
+            e.complete();
 
         subscribers->clear();
     }
 
     virtual void unsubscribe()
     {
-        isStopped = true;
+        is_stopped = true;
         closed = true;
-        subscribers->clear();
+        subscribers = nullptr;
     }
 };
 
