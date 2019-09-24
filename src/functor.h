@@ -47,6 +47,7 @@ private:
 
 public:
     bool is_null = true;
+
     template <typename T>
     functor(const T &_func)
     {
@@ -55,18 +56,28 @@ public:
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
-    auto operator()(Args... args) const
+    typename std::enable_if<std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type operator()(Args... args) const
     {
-        if (is_null)
-            throw std::runtime_error("call nullptr");
+        if (!is_null)
+            std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
+    }
+
+    template <typename RETURN_TYPE = void, typename... Args>
+    typename std::enable_if<!std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type operator()(Args... args) const
+    {
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
-    auto call(Args... args) const
+    typename std::enable_if<std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type call(Args... args) const
     {
-        if (is_null)
-            throw std::runtime_error("call nullptr");
+        if (!is_null)
+            std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
+    }
+
+    template <typename RETURN_TYPE = void, typename... Args>
+    typename std::enable_if<!std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type call(Args... args) const
+    {
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 };

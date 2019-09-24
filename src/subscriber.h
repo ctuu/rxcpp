@@ -17,25 +17,13 @@ public:
     template <typename... Args>
     void next(Args... args) const
     {
-        try
-        {
-            _next(args...);
-        }
-        catch (std::runtime_error e)
-        {
-        }
+        _next(args...);
     }
 
     template <typename... Args>
     void error(Args... args) const
     {
-        try
-        {
-            _error(args...);
-        }
-        catch (std::runtime_error e)
-        {
-        }
+        _error(args...);
     }
 
     void complete() const;
