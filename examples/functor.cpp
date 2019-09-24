@@ -1,5 +1,17 @@
 #include <iostream>
+#include <typeinfo>
 #include "rx.h"
+
+class A
+{
+public:
+    int x;
+
+    A(int e)
+    {
+        x = e * 3;
+    }
+};
 
 void func(int x)
 {
@@ -14,5 +26,7 @@ int main()
     auto funtor2 = rx::functor(func);
     funtor2(2);
     
+    auto functor = rx::functor([](int i) -> A { return A(i); });
+    std::cout << functor.call<A>(2).x << std::endl;
     return 0;
 }
