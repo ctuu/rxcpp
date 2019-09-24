@@ -3,7 +3,7 @@
 
 int main()
 {
-    auto a = rx::subscriber([](int i) { std::cout << i << std::endl; });
+    auto a = rx::subscriber([](int i) { std::cout << "Next: " << i << std::endl; });
     a.next(3);
     a.next(4);
     return 0;

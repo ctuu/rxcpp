@@ -1,7 +1,7 @@
 #include <iostream>
 #include "rx.h"
 
-void func(int i);
+void next_func(int i);
 
 int main()
 {
@@ -11,17 +11,17 @@ int main()
         subscriber.next(3);
         subscriber.complete();
     };
-    
+
     auto observable = rx::observable(a);
 
     observable.subscribe(rx::subscriber(
-        func,
-        nullptr,
-        []() { std::cout << "complete" << std::endl; }));
+        next_func,
+        nullptr, //error_func
+        []() { std::cout << "Completed" << std::endl; }));
     return 0;
 }
 
-void func(int i)
+void next_func(int i)
 {
-    std::cout << i << std::endl;
+    std::cout << "Next:" << i << std::endl;
 }
