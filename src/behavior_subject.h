@@ -23,7 +23,10 @@ public:
 
     T get_value()
     {
-        return prev_value;
+        if (this->closed)
+            throw std::runtime_error("UnsubscribedError");
+        else
+            return prev_value;
     }
 
     virtual void next(const T &value)
