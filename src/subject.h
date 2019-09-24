@@ -15,9 +15,6 @@ class subject : public observable
 {
 private:
 protected:
-    bool closed = false;
-    bool has_error = false;
-    bool is_stopped = false;
     std::any thrown_error = NULL;
 
     std::unique_ptr<subscri_list> subscribers;
@@ -35,6 +32,10 @@ protected:
     }
 
 public:
+    bool closed = false;
+    bool has_error = false;
+    bool is_stopped = false;
+    
     subject()
     {
         subscribers = std::make_unique<subscri_list>();

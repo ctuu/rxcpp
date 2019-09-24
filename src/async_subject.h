@@ -12,8 +12,6 @@ class async_subject : public subject<T>
 {
 protected:
     T value;
-    bool has_next = false;
-    bool has_completed = false;
 
     void _subscribe(const subscriber &subscriber)
     {
@@ -30,6 +28,8 @@ protected:
     }
 
 public:
+    bool has_next = false;
+    bool has_completed = false;
     virtual void next(const T &value)
     {
         if (!has_completed)
