@@ -46,21 +46,27 @@ private:
     } // from http://www.cplusplus.com/forum/general/223816/ @JLBorges
 
 public:
+    bool is_null = true;
     template <typename T>
     functor(const T &_func)
     {
+        is_null = std::is_same<T, std::nullptr_t>::value;
         func = wrap(_func);
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
     auto operator()(Args... args) const
     {
+        if (is_null)
+            return RETURN_TYPE();
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
     auto call(Args... args) const
     {
+        if (is_null)
+            return RETURN_TYPE();
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 };

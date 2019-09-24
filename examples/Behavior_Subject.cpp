@@ -3,11 +3,14 @@
 
 int main()
 {
-    auto behavior_subject = rx::behavior_subject<int>(20);
-    behavior_subject.next(30);
-    behavior_subject.subscribe([](int i) { std::cout << "Next: " << i << std::endl; });
-    behavior_subject.next(40);
-    behavior_subject.next(50);
+    auto subject = rx::behavior_subject<int>(0);
+    subject.subscribe([](int i) { std::cout << "observerA: " << i << std::endl; });
 
+    subject.next(1);
+    subject.next(2);
+
+    subject.subscribe([](int i) { std::cout << "observerB: " << i << std::endl; });
+
+    subject.next(3);
     return 0;
 }
