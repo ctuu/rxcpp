@@ -58,7 +58,7 @@ public:
     auto operator()(Args... args) const
     {
         if (is_null)
-            return RETURN_TYPE();
+            throw std::runtime_error("call nullptr");
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 
@@ -66,7 +66,7 @@ public:
     auto call(Args... args) const
     {
         if (is_null)
-            return RETURN_TYPE();
+            throw std::runtime_error("call nullptr");
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 };

@@ -5,7 +5,13 @@ namespace rx
 
 void subscriber::complete() const
 {
-    _complete();
+    try
+    {
+        _complete();
+    }
+    catch (std::runtime_error e)
+    {
+    }
 }
 
 }; // namespace rx

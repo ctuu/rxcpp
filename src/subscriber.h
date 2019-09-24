@@ -13,17 +13,29 @@ class subscriber
 public:
     template <typename A, typename B = std::nullptr_t, typename C = std::nullptr_t>
     subscriber(A _next, B _error = nullptr, C _complete = nullptr) : _next(_next), _error(_error), _complete(_complete){};
-    
+
     template <typename... Args>
     void next(Args... args) const
     {
-        _next(args...);
+        try
+        {
+            _next(args...);
+        }
+        catch (std::runtime_error e)
+        {
+        }
     }
 
-    template <typename... Args> 
+    template <typename... Args>
     void error(Args... args) const
     {
-        _error(args...);
+        try
+        {
+            _error(args...);
+        }
+        catch (std::runtime_error e)
+        {
+        }
     }
 
     void complete() const;
