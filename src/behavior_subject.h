@@ -19,7 +19,7 @@ protected:
     }
 
 public:
-    behavior_subject(const T &value) : prev_value(value) {}
+    behavior_subject(const T &value) : prev_value(value), subject<T>() {}
 
     T getValue()
     {
@@ -28,9 +28,7 @@ public:
 
     virtual void next(const T &value)
     {
-        for (auto e : this->subscribers)
-            e.next(value);
-        this->prev_value = value;
+        subject<T>::next(prev_value = value);
     }
 };
 
