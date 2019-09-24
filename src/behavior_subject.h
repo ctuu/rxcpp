@@ -11,19 +11,22 @@ class behavior_subject : public subject<T>
 {
 protected:
     T prev_value;
-    void _subscribe(subscriber _subscriber)
+
+    void _subscribe(const subscriber &subscriber)
     {
-        subject<T>::_subscribe(_subscriber);
-        _subscriber.next(prev_value);
+        subject<T>::_subscribe(subscriber);
+        subscriber.next(prev_value);
     }
 
 public:
     behavior_subject(const T &value) : prev_value(value) {}
-    T get()
+
+    T getValue()
     {
         return prev_value;
     }
-    void next(const T &value)
+
+    virtual void next(const T &value)
     {
         for (auto e : this->subscribers)
             e.next(value);

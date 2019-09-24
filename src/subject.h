@@ -2,7 +2,6 @@
 #define CTUU_RX_SUBJECT_H_
 
 #include <list>
-#include <iostream>
 #include "observable.h"
 
 namespace rx
@@ -14,18 +13,21 @@ class subject : public observable
 private:
 protected:
     std::list<subscriber> subscribers;
-    void _subscribe(subscriber _subscriber)
+    
+    virtual void _subscribe(const subscriber &subscriber)
     {
-        subscribers.push_back(_subscriber);
+        subscribers.push_back(subscriber);
     }
 
 public:
     subject() = default;
+
     virtual void next(const T &value)
     {
         for (auto e : subscribers)
             e.next(value);
     }
+
 };
 
 }; // namespace rx

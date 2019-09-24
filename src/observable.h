@@ -2,16 +2,17 @@
 #define CTUU_RX_OBSERVABLE_H_
 
 #include <functional>
-#include "functor.h"
 #include "subscriber.h"
 
 namespace rx
 {
 
+using subscriber_function = std::function<void(const subscriber &)>;
+
 class observable
 {
 private:
-    std::function<void(const subscriber &)> __subscribe;
+    subscriber_function __subscribe;
 
 protected:
     virtual void _subscribe(const subscriber &);
@@ -19,7 +20,7 @@ protected:
 public:
     observable() = default;
 
-    observable(const std::function<void(const subscriber &)> &);
+    observable(const subscriber_function &subscriber);
 
     void subscribe(const subscriber &);
 

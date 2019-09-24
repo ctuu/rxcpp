@@ -8,7 +8,7 @@ namespace rx
 
 class subscriber
 {
-    functor::functor _next, _error, _complete;
+    functor _next, _error, _complete;
 
 public:
     template <typename A, typename B = std::nullptr_t, typename C = std::nullptr_t>
@@ -26,10 +26,7 @@ public:
         _error(args...);
     }
 
-    void complete() const
-    {
-        _complete();
-    }
+    void complete() const;
 };
 
 }; // namespace rx
