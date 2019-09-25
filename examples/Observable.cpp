@@ -5,14 +5,13 @@ void next_func(int i);
 
 int main()
 {
-    auto a = [](const rx::subscriber &subscriber) {
-        subscriber.next(1);
-        subscriber.next(2);
-        subscriber.next(3);
-        subscriber.complete();
-    };
-
-    auto observable = rx::observable(a);
+    auto observable = rx::observable(
+        [](const rx::subscriber &subscriber) {
+            subscriber.next(1);
+            subscriber.next(2);
+            subscriber.next(3);
+            subscriber.complete();
+        });
 
     observable.subscribe(rx::subscriber(
         next_func,

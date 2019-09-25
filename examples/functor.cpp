@@ -21,12 +21,13 @@ void func(int x)
 int main()
 {
     auto functor = rx::functor([](int i) -> int { return i * 2; });
-    std::cout << functor.call<int>(2) << std::endl;
+    std::cout << functor.invoke<int>(4) << std::endl;
+    std::cout << functor.operator()<int>(4) << std::endl;
 
-    functor = rx::functor(func);
-    functor(2);
-    
-    functor = rx::functor([](int i) -> A { return A(i); });
-    std::cout << functor.call<A>(2).x << std::endl;
+    functor = func;
+    functor(4);
+
+    functor = nullptr;
+    functor(1, 2, 3, 4); // nothing happen
     return 0;
 }

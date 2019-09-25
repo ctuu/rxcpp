@@ -76,14 +76,14 @@ public:
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
-    typename std::enable_if<std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type call(Args... args) const
+    typename std::enable_if<std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type invoke(Args... args) const
     {
         if (!is_null)
             std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }
 
     template <typename RETURN_TYPE = void, typename... Args>
-    typename std::enable_if<!std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type call(Args... args) const
+    typename std::enable_if<!std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type invoke(Args... args) const
     {
         return std::invoke(std::any_cast<std::function<RETURN_TYPE(Args...)>>(func), args...);
     }

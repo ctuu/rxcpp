@@ -3,8 +3,13 @@
 
 int main()
 {
-    auto a = rx::subscriber([](int i) { std::cout << "Next: " << i << std::endl; });
-    a.next(3);
-    a.next(4);
+    auto subscriber = rx::subscriber(
+        [](int i) { std::cout << "Next: " << i << std::endl; },
+        nullptr,
+        []() { std::cout << "Completed" << std::endl; });
+    subscriber.next(3);
+    subscriber.next(4);
+    subscriber.error(); // nothing happen
+    subscriber.complete();
     return 0;
 }
