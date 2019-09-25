@@ -20,13 +20,13 @@ void func(int x)
 
 int main()
 {
-    auto funtor = rx::functor([](int i) -> int { return i * 2; });
-    std::cout << funtor.call<int>(2) << std::endl;
+    auto functor = rx::functor([](int i) -> int { return i * 2; });
+    std::cout << functor.call<int>(2) << std::endl;
 
-    auto funtor2 = rx::functor(func);
-    funtor2(2);
+    functor = rx::functor(func);
+    functor(2);
     
-    auto functor = rx::functor([](int i) -> A { return A(i); });
+    functor = rx::functor([](int i) -> A { return A(i); });
     std::cout << functor.call<A>(2).x << std::endl;
     return 0;
 }

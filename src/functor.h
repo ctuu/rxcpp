@@ -55,6 +55,13 @@ public:
         func = wrap(_func);
     }
 
+    template <typename T>
+    functor &operator=(const T &_func)
+    {
+        is_null = std::is_same<T, std::nullptr_t>::value;
+        func = wrap(_func);
+        return *this;
+    }
     template <typename RETURN_TYPE = void, typename... Args>
     typename std::enable_if<std::is_void<RETURN_TYPE>::value, RETURN_TYPE>::type operator()(Args... args) const
     {
