@@ -3,6 +3,15 @@ An attempt at Reactive Programming for C++ 17
 Inspired by [RxJS](https://rxjs.dev)
 
 
+## build examples
+
+``` c++
+cd build
+cmake && make
+```
+
+executable examples in `bin/examples`
+
 
 ``` c++
 namespace rx {
