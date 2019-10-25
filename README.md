@@ -130,7 +130,7 @@ void next_func(int i)
 }
 
 auto observable = rx::observable(
-    [](const rx::subscriber &subscriber) {
+    [](auto &subscriber) {
         subscriber.next(1);
         subscriber.next(2);
         subscriber.next(3);

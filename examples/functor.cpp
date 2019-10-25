@@ -20,7 +20,7 @@ void func(int x)
 
 int main()
 {
-    auto functor = rx::functor([](int i) -> int { return i * 2; });
+    auto functor = rx::functor([](int i) { return i * 2; });
     std::cout << functor.invoke<int>(4) << std::endl;
     std::cout << functor.operator()<int>(4) << std::endl;
 
