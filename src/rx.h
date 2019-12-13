@@ -12,5 +12,5 @@
 namespace rx
 {
 
-}; // namespace rx
+} // namespace rx
 #endif

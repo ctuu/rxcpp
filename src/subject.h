@@ -35,7 +35,7 @@ public:
     bool closed = false;
     bool has_error = false;
     bool is_stopped = false;
-    
+
     subject()
     {
         subscribers = std::make_unique<subscri_list>();
@@ -88,5 +88,5 @@ public:
     }
 };
 
-}; // namespace rx
+} // namespace rx
 #endif

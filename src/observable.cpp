@@ -15,4 +15,4 @@ void observable::subscribe(const subscriber &subscriber)
     _subscribe(subscriber);
 }
 
-}; // namespace rx
+} // namespace rx

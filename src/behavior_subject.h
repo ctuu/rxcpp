@@ -35,5 +35,5 @@ public:
     }
 };
 
-}; // namespace rx
+} // namespace rx
 #endif

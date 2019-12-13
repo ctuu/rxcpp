@@ -17,7 +17,7 @@ struct deduce_type<RETURN_TYPE (CLASS_TYPE::*)(Args...) const>
     using type = std::function<RETURN_TYPE(Args...)>;
 };
 
-}; // namespace rx::detail
+} // namespace rx::detail
 namespace rx
 {
 
@@ -89,5 +89,5 @@ public:
     }
 };
 
-}; // namespace rx
+} // namespace rx
 #endif

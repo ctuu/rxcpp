@@ -8,4 +8,4 @@ void subscriber::complete() const
     _complete();
 }
 
-}; // namespace rx
+} // namespace rx

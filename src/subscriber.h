@@ -29,5 +29,5 @@ public:
     void complete() const;
 };
 
-}; // namespace rx
+} // namespace rx
 #endif
