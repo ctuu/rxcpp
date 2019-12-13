@@ -29,4 +29,6 @@ PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/behavior_subject.h
     ${CMAKE_CURRENT_SOURCE_DIR}/replay_subject.h
     ${CMAKE_CURRENT_SOURCE_DIR}/async_subject.h
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/of.h
 )

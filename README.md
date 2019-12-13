@@ -22,6 +22,8 @@ namespace rx {
     class behavior_subject<T>;
     class replay_subject<T>;
     class async_subject<T>;
+
+    function of<T>(std::initializer_list<T> &&): observable;
 }
 ```
 ## rx::functor
@@ -69,13 +71,13 @@ functor(1,2,3,4); // nothing happen
 ``` c++
 class rx::subscriber {
     subscriber(
-        rx::functor next,  
+        rx::functor next,
         rx::functor error?,
         rx::functor complete?
     );
     void next(...arg);
     void error(...arg);
-    void complete(); 
+    void complete();
 }
 ```
 
@@ -111,7 +113,7 @@ class rx::observable {
     observable(std::function<void(const subscriber &)>);
     void subscribe(const subscriber &);
     void subscribe(
-        rx::functor next,  
+        rx::functor next,
         rx::functor error?,
         rx::functor complete?
     );
@@ -167,7 +169,7 @@ class rx::subject<T>: rx::observable {
 }
 ```
 
-### Example: 
+### Example:
 ``` c++
 #include <any>
 #include <iostream>
@@ -304,4 +306,37 @@ subject.complete();
 // Result:
 // observerA: 3
 // observerB: 3
+```
+
+---
+
+## rx::of
+
+``` c++
+observable of(std::initializer_list<T> &&list);
+```
+
+### Example:
+
+``` c++
+#include <iostream>
+#include "rx.h"
+
+void next_func(int i)
+{
+    std::cout << "Next:" << i << std::endl;
+}
+
+rx::of({1, 3, 5, 7})
+        .subscribe(
+            next_func,
+            nullptr, //error_func
+            []() { std::cout << "Completed" << std::endl; });
+
+// Result:
+// Next:1
+// Next:3
+// Next:5
+// Next:7
+// Completed
 ```

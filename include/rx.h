@@ -8,6 +8,7 @@
 #include "observable.h"
 #include "subscriber.h"
 #include "functor.h"
+#include "of.h"
 
 namespace rx
 {
